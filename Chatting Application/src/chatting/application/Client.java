@@ -135,9 +135,10 @@ public class Client extends JFrame implements ActionListener{
             
             String msginput = "";
             
-            msginput = din.readUTF();
-            a1.setText(a1.getText()+"\n"+msginput);
-            
+	    while(true){
+	        msginput = din.readUTF();
+            	a1.setText(a1.getText()+"\n"+msginput);
+            }
             
         }catch(Exception e){}
     }    

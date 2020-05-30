@@ -133,9 +133,10 @@ public class Server extends JFrame implements ActionListener{
                 din = new DataInputStream(s.getInputStream());
                 dout = new DataOutputStream(s.getOutputStream());
             
-                msginput = din.readUTF();
-                a1.setText(a1.getText()+"\n"+msginput);
-            
+	        while(true){
+	                msginput = din.readUTF();
+        		a1.setText(a1.getText()+"\n"+msginput);
+            	}
                 skt.close();
                 s.close();
             }
