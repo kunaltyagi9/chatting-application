@@ -18,6 +18,7 @@ public class Client extends JFrame implements ActionListener{
     static DataOutputStream dout;
     
     Client(){
+	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
         p1 = new JPanel();
         p1.setLayout(null);

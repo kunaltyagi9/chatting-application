@@ -19,7 +19,7 @@ public class Server extends JFrame implements ActionListener{
     static DataOutputStream dout;
     
     Server(){
-        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         p1 = new JPanel();
         p1.setLayout(null);
         p1.setBackground(new Color(7, 94, 84));
@@ -137,8 +137,7 @@ public class Server extends JFrame implements ActionListener{
 	                msginput = din.readUTF();
         		a1.setText(a1.getText()+"\n"+msginput);
             	}
-                skt.close();
-                s.close();
+                
             }
             
         }catch(Exception e){}
