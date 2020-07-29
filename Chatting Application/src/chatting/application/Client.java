@@ -1,17 +1,25 @@
 package chatting.application;
 
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
 import java.io.*;
 
-public class Client extends JFrame implements ActionListener{
+import java.util.Calendar;
+import java.text.SimpleDateFormat;import javax.swing.*;
+
+public class Client implements ActionListener{
     
     JPanel p1;
     JTextField t1;
     JButton b1;
-    static JTextArea a1;
+    static JPanel a1;
+    static JFrame f1 = new JFrame();
+    
+    static Box vertical = Box.createVerticalBox();
+    
     
     static Socket s;
     static DataInputStream din;
@@ -20,13 +28,13 @@ public class Client extends JFrame implements ActionListener{
     Boolean typing;
     
     Client(){
-	setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	f1.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         
         p1 = new JPanel();
         p1.setLayout(null);
         p1.setBackground(new Color(7, 94, 84));
         p1.setBounds(0, 0, 450, 70);
-        add(p1);
+        f1.add(p1);
         
        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/3.png"));
        Image i2 = i1.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT);
@@ -93,19 +101,16 @@ public class Client extends JFrame implements ActionListener{
        
        t.setInitialDelay(2000);
 
-       a1 = new JTextArea();
+       a1 = new JPanel();
        a1.setBounds(5, 75, 440, 570);
        a1.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
-       a1.setEditable(false);
-       a1.setLineWrap(true);
-       a1.setWrapStyleWord(true);
-       add(a1);
+       f1.add(a1);
        
        
        t1 = new JTextField();
        t1.setBounds(5, 655, 310, 40);
        t1.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
-       add(t1);
+       f1.add(t1);
        
        t1.addKeyListener(new KeyAdapter(){
            public void keyPressed(KeyEvent ke){
@@ -131,14 +136,14 @@ public class Client extends JFrame implements ActionListener{
        b1.setForeground(Color.WHITE);
        b1.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
        b1.addActionListener(this);
-       add(b1);
+       f1.add(b1);
         
-       getContentPane().setBackground(Color.WHITE);
-       setLayout(null);
-       setSize(450, 700);
-       setLocation(1100, 200); 
-       setUndecorated(true);
-       setVisible(true);
+       f1.getContentPane().setBackground(Color.WHITE);
+       f1.setLayout(null);
+       f1.setSize(450, 700);
+       f1.setLocation(1100, 200); 
+       f1.setUndecorated(true);
+       f1.setVisible(true);
         
     }
     
@@ -146,16 +151,49 @@ public class Client extends JFrame implements ActionListener{
         
         try{
             String out = t1.getText();
-            a1.setText(a1.getText()+"\n\t\t\t"+out);
+            
+            JPanel p2 = formatLabel(out);
+            
+            a1.setLayout(new BorderLayout());
+            
+            JPanel right = new JPanel(new BorderLayout());
+            right.add(p2, BorderLayout.LINE_END);
+            vertical.add(right);
+            vertical.add(Box.createVerticalStrut(15));
+            
+            a1.add(vertical, BorderLayout.PAGE_START);
+            
+            //a1.add(p2);
             dout.writeUTF(out);
             t1.setText("");
         }catch(Exception e){
-            
+            System.out.println(e);
         }
     }
     
+    public static JPanel formatLabel(String out){
+        JPanel p3 = new JPanel();
+        p3.setLayout(new BoxLayout(p3, BoxLayout.Y_AXIS));
+        
+        JLabel l1 = new JLabel("<html><p style = \"width : 150px\">"+out+"</p></html>");
+        l1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        l1.setBackground(new Color(37, 211, 102));
+        l1.setOpaque(true);
+        l1.setBorder(new EmptyBorder(15,15,15,50));
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        
+        JLabel l2 = new JLabel();
+        l2.setText(sdf.format(cal.getTime()));
+        
+        p3.add(l1);
+        p3.add(l2);
+        return p3;
+    }
+    
     public static void main(String[] args){
-        new Client().setVisible(true);
+        new Client().f1.setVisible(true);
         
         try{
             
@@ -166,8 +204,16 @@ public class Client extends JFrame implements ActionListener{
             String msginput = "";
             
 	    while(true){
+                a1.setLayout(new BorderLayout());
 	        msginput = din.readUTF();
-            	a1.setText(a1.getText()+"\n"+msginput);
+            	JPanel p2 = formatLabel(msginput);
+                JPanel left = new JPanel(new BorderLayout());
+                left.add(p2, BorderLayout.LINE_START);
+                
+                vertical.add(left);
+                vertical.add(Box.createVerticalStrut(15));
+                a1.add(vertical, BorderLayout.PAGE_START);
+                f1.validate();
             }
             
         }catch(Exception e){}
