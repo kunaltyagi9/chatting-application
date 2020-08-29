@@ -151,6 +151,7 @@ public class Server implements ActionListener{
         try{
             String out = t1.getText();
             
+            sendTextToFile(out);
             JPanel p2 = formatLabel(out);
             
             a1.setLayout(new BorderLayout());
@@ -167,6 +168,18 @@ public class Server implements ActionListener{
             t1.setText("");
         }catch(Exception e){
             System.out.println(e);
+        }
+    }
+    
+    public void sendTextToFile(String text) throws FileNotFoundException{
+        try (FileWriter f = new FileWriter("chat.txt", true);
+                BufferedWriter b = new BufferedWriter(f);
+                PrintWriter p = new PrintWriter(b);) {
+
+            p.println("Gaitonde: "+text);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     

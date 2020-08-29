@@ -8,7 +8,7 @@ import java.net.*;
 import java.io.*;
 
 import java.util.Calendar;
-import java.text.SimpleDateFormat;import javax.swing.*;
+import java.text.SimpleDateFormat;
 
 public class Client implements ActionListener{
     
@@ -100,10 +100,16 @@ public class Client implements ActionListener{
        });
        
        t.setInitialDelay(2000);
+       
+//       ImageIcon image1 = new ImageIcon(ClassLoader.getSystemResource("chatting/application/icons/background.jpg"));
+//       Image image2 = image1.getImage().getScaledInstance(450, 700, Image.SCALE_DEFAULT);
+//       ImageIcon image3 = new ImageIcon(image2);
+//       JLabel label1 = new JLabel(image3);
 
        a1 = new JPanel();
        a1.setBounds(5, 75, 440, 570);
        a1.setFont(new Font("SAN_SERIF", Font.PLAIN, 16));
+       //a1.add(label1);
        f1.add(a1);
        
        
@@ -151,7 +157,7 @@ public class Client implements ActionListener{
         
         try{
             String out = t1.getText();
-            
+            sendTextToFile(out);
             JPanel p2 = formatLabel(out);
             
             a1.setLayout(new BorderLayout());
@@ -160,6 +166,8 @@ public class Client implements ActionListener{
             right.add(p2, BorderLayout.LINE_END);
             vertical.add(right);
             vertical.add(Box.createVerticalStrut(15));
+            vertical.setOpaque(false);
+            
             
             a1.add(vertical, BorderLayout.PAGE_START);
             
@@ -168,6 +176,18 @@ public class Client implements ActionListener{
             t1.setText("");
         }catch(Exception e){
             System.out.println(e);
+        }
+    }
+    
+    public void sendTextToFile(String text) throws FileNotFoundException{
+        try (FileWriter f = new FileWriter("chat.txt", true);
+                BufferedWriter b = new BufferedWriter(f);
+                PrintWriter p = new PrintWriter(b);) {
+
+            p.println("Bunty: "+text);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
