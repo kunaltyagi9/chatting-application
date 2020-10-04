@@ -1,3 +1,4 @@
+//hello chatting application
 package group.chatting.application;
 
 import javax.swing.*;
