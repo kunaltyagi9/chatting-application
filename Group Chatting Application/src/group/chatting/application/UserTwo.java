@@ -9,7 +9,7 @@ import java.text.*;
 import java.net.*;
 import java.io.*;
 
-public class UserOne implements ActionListener, Runnable {
+public class UserTwo implements ActionListener, Runnable {
     
     JTextField text;
     JPanel a1;
@@ -19,9 +19,9 @@ public class UserOne implements ActionListener, Runnable {
     
     BufferedReader reader;
     BufferedWriter writer;
-    String name = "Kaleen Bhaiya";
+    String name = "Guddu Bhaiya";
     
-    UserOne() {
+    UserTwo() {
         
         f.setLayout(null);
         
@@ -78,7 +78,7 @@ public class UserOne implements ActionListener, Runnable {
         name.setFont(new Font("SAN_SERIF", Font.BOLD, 18));
         p1.add(name);
         
-        JLabel status = new JLabel("Kaleen, Guddu, Bablu, Sweety, IG Dubey, Shukla");
+        JLabel status = new JLabel("Guddu, Kaleen, Bablu, Sweety, IG Dubey, Shukla");
         status.setBounds(110, 35, 160, 18);
         status.setForeground(Color.WHITE);
         status.setFont(new Font("SAN_SERIF", Font.BOLD, 14));
@@ -103,7 +103,7 @@ public class UserOne implements ActionListener, Runnable {
         f.add(send);
         
         f.setSize(450, 700);
-        f.setLocation(20, 50);
+        f.setLocation(490, 50);
         f.setUndecorated(true);
         f.getContentPane().setBackground(Color.WHITE);
         
@@ -127,8 +127,8 @@ public class UserOne implements ActionListener, Runnable {
             a1.setLayout(new BorderLayout());
 
             JPanel right = new JPanel(new BorderLayout());
-            right.setBackground(Color.WHITE);
             right.add(p2, BorderLayout.LINE_END);
+            right.setBackground(Color.WHITE);
             vertical.add(right);
             vertical.add(Box.createVerticalStrut(15));
 
@@ -204,8 +204,8 @@ public class UserOne implements ActionListener, Runnable {
     }
     
     public static void main(String[] args) {
-        UserOne one = new UserOne();
-        Thread t1 = new Thread(one);
+        UserTwo two = new UserTwo();
+        Thread t1 = new Thread(two);
         t1.start();
     }
 }
