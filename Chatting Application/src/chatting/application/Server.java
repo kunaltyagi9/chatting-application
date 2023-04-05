@@ -56,7 +56,7 @@ public class Server implements ActionListener
        
          
          // For Profile Photo
-         ImageIcon icon4 = new  ImageIcon(ClassLoader.getSystemResource("icons/Anonymous.png"));
+         ImageIcon icon4 = new  ImageIcon(ClassLoader.getSystemResource("icons/1.ng"));
         Image icon5 = icon4.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon icon6 = new ImageIcon(icon5);
         JLabel profile = new JLabel(icon6);
